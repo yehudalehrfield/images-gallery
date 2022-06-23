@@ -1,10 +1,20 @@
 version: '3'
 services:
   frontend:
+    restart: always
     build: ./frontend
     ports:
       - '3000:3000'
+    volumes:
+      - /app/node_modules #this line so that node modules folder will not be changed
+      - ./frontend:/app
+    ### FOLLOWING LINES NECESSARY IF SITE DOES NOT UPDATE AS EXPECTED
+    # environement:
+    #   - CHOKIDAR_USEPOLLING=TRUE
   api:
+    restart: always
     build: ./api
     ports: 
       - '5050:5050'
+    volumes:
+      - ./api:/app
