@@ -9,6 +9,8 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
+    // not sure if this next line is doing anything, 
+    // but see the line after the "editor.formatOnSave":true
     "python.pythonPath": "api/.venv/bin/python3",
     "python.linting.pycodestyleEnabled": true,
     "python.linting.pycodestyleArgs": [
@@ -19,5 +21,6 @@
     "[python]": {
         "editor.formatOnSave": true
     },
+    "python.linting.pylintPath": "api/.venv/bin/python3",
     "python.linting.pylintArgs": ["--disable=C0111"]
 }
