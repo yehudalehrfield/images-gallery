@@ -7,6 +7,8 @@ import ImageCard from './components/ImageCard';
 import Welcome from './components/Welcome';
 import Spinner from './components/Spinner';
 import { Container, Row, Col } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; //do we need this?
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 
@@ -20,8 +22,10 @@ const App = () => {
       const res = await axios.get(`${API_URL}/images`);
       setImages(res.data || []);
       setLoading(false);
+      toast.success('Saved Images Successfully Loaded');
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -31,14 +35,15 @@ const App = () => {
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await axios.get(`${API_URL}/new-image?query=${word}`);
       // console.log('ading found image to the state');
       setImages([{ ...res.data, title: word }, ...images]);
       // console.log(res.data);
+      toast.info(`New Image ${word.toUpperCase()} was Found`);
     } catch (error) {
       console.log(error);
+      toast.error(error.log);
     }
 
     // console.log('clearing search form');
@@ -46,16 +51,19 @@ const App = () => {
   };
 
   const handleDeleteImage = async (id) => {
-    // const imageToBeDeleted = images.find((image_ => image.id === id));
+    const imageToBeDeleted = images.find((image) => image.id === id);
     // const res = await axios.delete()
 
     const res = await axios.delete(`${API_URL}/images/${id}`);
     if (res.data?.deleted_id) {
+      // how to fix the issue that the image is not deleted if not yet saved to the db...?
+      toast.warn(`Image ${imageToBeDeleted.title.toUpperCase()} was Deleted`);
       setImages(images.filter((image) => image.id !== id));
     }
     try {
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -70,10 +78,14 @@ const App = () => {
             image.id === id ? { ...image, saved: true } : image
           )
         );
+        toast.success(
+          `Image ${imageToBeSaved.title.toUpperCase()} was successfuly saved`
+        );
       }
       console.log(res.data);
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -108,6 +120,14 @@ const App = () => {
           </Container>{' '}
         </>
       )}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        newestOnTop={true}
+      />
+      ;
     </div>
   );
 };
