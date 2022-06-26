@@ -22,7 +22,7 @@ const App = () => {
       const res = await axios.get(`${API_URL}/images`);
       setImages(res.data || []);
       setLoading(false);
-      toast.success('Saved Images Successfully Loaded');
+      toast.success('Saved images successfully loaded from the database');
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -40,7 +40,7 @@ const App = () => {
       // console.log('ading found image to the state');
       setImages([{ ...res.data, title: word }, ...images]);
       // console.log(res.data);
-      toast.info(`New Image ${word.toUpperCase()} was Found`);
+      toast.info(`New Image ${word.toUpperCase()} was found`);
     } catch (error) {
       console.log(error);
       toast.error(error.log);
@@ -53,12 +53,13 @@ const App = () => {
   const handleDeleteImage = async (id) => {
     const imageToBeDeleted = images.find((image) => image.id === id);
     // const res = await axios.delete()
-
+    setImages(images.filter((image) => image.id !== id));
     const res = await axios.delete(`${API_URL}/images/${id}`);
     if (res.data?.deleted_id) {
       // how to fix the issue that the image is not deleted if not yet saved to the db...?
-      toast.warn(`Image ${imageToBeDeleted.title.toUpperCase()} was Deleted`);
-      setImages(images.filter((image) => image.id !== id));
+      toast.warn(
+        `Image ${imageToBeDeleted.title.toUpperCase()} was deleted from the database`
+      );
     }
     try {
     } catch (error) {
@@ -79,7 +80,7 @@ const App = () => {
           )
         );
         toast.success(
-          `Image ${imageToBeSaved.title.toUpperCase()} was successfuly saved`
+          `Image ${imageToBeSaved.title.toUpperCase()} was successfuly saved to the database`
         );
       }
       console.log(res.data);
