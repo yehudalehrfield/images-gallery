@@ -5,8 +5,8 @@ const spinnerStyle = {
   position: 'absolute',
   height: '10rem',
   width: '10rem',
-  top: 'calc(50% - 5rem)',
-  left: 'calc(50% - 5rem)',
+  top: 'calc(50% - 5rem)', //center on page, account for radius
+  left: 'calc(50% - 5rem)', //center on page, account for radius
 };
 
 const Spinner = () => (

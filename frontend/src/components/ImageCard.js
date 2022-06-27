@@ -9,8 +9,10 @@ const ImageCard = ({ image, deleteImage, saveImage }) => {
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={image.urls.small} />
       <Card.Body>
+        {/* add title and description beneath image */}
         <Card.Title>{image.title?.toUpperCase()}</Card.Title>
         <Card.Text>{image.description || image.alt_description}</Card.Text>
+        {/* add button for delete and save (when applicable) */}
         <Button variant="primary" onClick={() => deleteImage(image.id)}>
           Delete
         </Button>{' '}
@@ -20,6 +22,7 @@ const ImageCard = ({ image, deleteImage, saveImage }) => {
           </Button>
         )}
       </Card.Body>
+      {/* Add author name (if known) and link to portfolio (if applicable) */}
       {/* Bogdon Version: */}
       <Card.Footer className="text-center text-muted">
         {authorPortfolioURL && (
