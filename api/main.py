@@ -43,12 +43,17 @@ def new_image():
 # allows retrieval of images in the db and posting of new images to the db
 @app.route("/images", methods=["GET", "POST"])
 def image():
+    sortType = request.args.get("sorting")
     if request.method == "GET":
         # read images from database
         # no filter -> all images retrieved
         images = images_collection.find({})
+        if (sortType == 'views' or sortType == 'downloads'):
+            imagesSorted = images_collection.find().sort(sortType, -1)
+        else:
+            imagesSorted = images_collection.find().sort(sortType)
         # return the json for all images
-        return jsonify([img for img in images])
+        return jsonify([img for img in imagesSorted])
     if request.method == "POST":
         # save image in the database
         # get the json for the image to be added to the db

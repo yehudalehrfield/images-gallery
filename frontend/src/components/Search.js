@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Dropdown } from 'react-bootstrap';
 
 // Function to search for an image based on specific search word(s)
-const Search = ({ word, setWord, handleSubmit }) => {
+const Search = ({ word, setWord, handleSubmit, loadImages }) => {
   return (
     <Container className="mt-4">
       <Row className="justify-content-center">
@@ -25,6 +25,34 @@ const Search = ({ word, setWord, handleSubmit }) => {
             </Form.Row>
           </Form>
         </Col>
+        <div style={{ float: 'right' }}>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Sort Images
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => loadImages('title')}>
+                By Title
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => loadImages('user.name')}>
+                By Author
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => loadImages('created_at')}>
+                By Photo Date
+              </Dropdown.Item>
+              {/* <Dropdown.Item onClick={() => loadImages('title')}>
+                By Date Added
+              </Dropdown.Item> */}
+              <Dropdown.Item onClick={() => loadImages('downloads')}>
+                By Downloads
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => loadImages('views')}>
+                By Views
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       </Row>
     </Container>
   );

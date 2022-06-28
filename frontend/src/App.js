@@ -19,9 +19,10 @@ const App = () => {
   const [loading, setLoading] = useState(true); //state of loading images from database, initialize true
 
   // Function to load images from the database
-  const getSavedImages = async () => {
+  const getSavedImages = async (sortType) => {
+    // let sortType = 'user.name';
     try {
-      const res = await axios.get(`${API_URL}/images`); //get images from db
+      const res = await axios.get(`${API_URL}/images?sorting=${sortType}`); //get images from db
       setImages(res.data || []); //set the images array with images from db or empty array
       setLoading(false); //after loading images, set false (finished loading)
       toast.success('Saved images loaded from the database'); // toast notification for loaded images
@@ -33,7 +34,7 @@ const App = () => {
 
   // call useEffect which calls getSavedImages;
   // second argument is the dependancy, such that this is only called once (when App renders)
-  useEffect(() => getSavedImages(), []);
+  useEffect(() => getSavedImages('title'), []);
 
   // helper function to search for images
   const handleSearchSubmit = async (e) => {
@@ -123,6 +124,7 @@ const App = () => {
             word={word}
             setWord={setWord}
             handleSubmit={handleSearchSubmit}
+            loadImages={getSavedImages}
           />
           <Container className="mt-4">
             {images.length ? ( // if images array isn't empty, show images in cards

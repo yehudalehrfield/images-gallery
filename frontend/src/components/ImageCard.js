@@ -20,7 +20,8 @@ const ImageCard = ({ image, deleteImage, saveImage }) => {
           <Button variant="secondary" onClick={() => saveImage(image.id)}>
             Save
           </Button>
-        )}
+        )}{' '}
+        <Button variant="secondary">image info</Button>
       </Card.Body>
       {/* Add author name (if known) and link to portfolio (if applicable) */}
       {/* Bogdon Version: */}
