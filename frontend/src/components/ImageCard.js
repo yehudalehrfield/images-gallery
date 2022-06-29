@@ -1,9 +1,28 @@
 import React from 'react';
-import { Card, Button, Nav } from 'react-bootstrap';
+import {
+  Card,
+  Button,
+  Nav,
+  Tooltip,
+  OverlayTrigger,
+  Popover,
+} from 'react-bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/index.css';
 
 const ImageCard = ({ image, deleteImage, saveImage }) => {
   const authorName = image.user?.name || 'Unknown Author';
   const authorPortfolioURL = image.user?.portfolio_url;
+
+  // const popover = (
+  //   <Popover id="popover-basic">
+  //     <Popover.Header as="h3">Popover right</Popover.Header>
+  //     <Popover.Body>
+  //       And here's some <strong>amazing</strong> content. It's very engaging.
+  //       right?
+  //     </Popover.Body>
+  //   </Popover>
+  // );
 
   return (
     <Card style={{ width: '18rem' }}>
@@ -21,7 +40,24 @@ const ImageCard = ({ image, deleteImage, saveImage }) => {
             Save
           </Button>
         )}{' '}
-        <Button variant="secondary">image info</Button>
+        <OverlayTrigger
+          placement="right"
+          overlay={
+            // How do i change the color of the tooltip?
+            <Tooltip className="my-tooltip">
+              Search Date: {image.date_retrieved} <br></br>
+              Photo Date: {image.created_at.slice(0, 10)} <br></br>
+              Downloads: {image.downloads} <br></br>
+              Views: {image.views}
+            </Tooltip>
+          }
+        >
+          <Button variant="info">Image Info</Button>
+        </OverlayTrigger>
+        {/* This does not work --> opens a new, blank page */}
+        {/* <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+          <Button variant="info">Click me to see</Button>
+        </OverlayTrigger> */}
       </Card.Body>
       {/* Add author name (if known) and link to portfolio (if applicable) */}
       {/* Bogdon Version: */}

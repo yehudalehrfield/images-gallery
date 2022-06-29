@@ -41,9 +41,9 @@ const Search = ({ word, setWord, handleSubmit, loadImages }) => {
               <Dropdown.Item onClick={() => loadImages('created_at')}>
                 By Photo Date
               </Dropdown.Item>
-              {/* <Dropdown.Item onClick={() => loadImages('title')}>
-                By Date Added
-              </Dropdown.Item> */}
+              <Dropdown.Item onClick={() => loadImages('date_retrieved')}>
+                By Search Date
+              </Dropdown.Item>
               <Dropdown.Item onClick={() => loadImages('downloads')}>
                 By Downloads
               </Dropdown.Item>

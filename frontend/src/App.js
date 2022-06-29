@@ -41,8 +41,12 @@ const App = () => {
     e.preventDefault(); // preventing action from happening before submit button is clicked
     try {
       const res = await axios.get(`${API_URL}/new-image?query=${word}`); //get new image from UnSplash using word
+      let today = new Date().toISOString().slice(0, 10);
       // console.log('adding found image to the state');
-      setImages([{ ...res.data, title: word }, ...images]); //update the images array (add to front)
+      setImages([
+        { ...res.data, title: word, date_retrieved: today },
+        ...images,
+      ]); //update the images array (add to front)
       // console.log(res.data);
       toast.info(`New Image ${word.toUpperCase()} was found`); //toast notification after image was found
     } catch (error) {
