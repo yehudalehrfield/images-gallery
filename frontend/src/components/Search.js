@@ -14,7 +14,7 @@ const Search = ({ word, setWord, handleSubmit, loadImages }) => {
                   type="text" // for search word
                   value={word} // for search word
                   onChange={(e) => setWord(e.target.value)} //update with every change in word
-                  placeholder="Search for new image..." //when no text is entered yet
+                  placeholder="Search for new image..."
                 />
               </Col>
               <Col>
@@ -25,6 +25,7 @@ const Search = ({ word, setWord, handleSubmit, loadImages }) => {
             </Form.Row>
           </Form>
         </Col>
+        {/* Add sort-by functionality */}
         <div style={{ float: 'right' }}>
           <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">

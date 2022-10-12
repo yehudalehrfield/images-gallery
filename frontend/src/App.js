@@ -40,7 +40,7 @@ const App = () => {
   const handleSearchSubmit = async (e) => {
     e.preventDefault(); // preventing action from happening before submit button is clicked
     try {
-      const res = await axios.get(`${API_URL}/new-image?query=${word}`); //get new image from UnSplash using word
+      const res = await axios.get(`${API_URL}/new-image?query=${word}`); //get new image from UnSplash using word as query
       let today = new Date().toISOString().slice(0, 10);
       // console.log('adding found image to the state');
       setImages([
@@ -54,6 +54,7 @@ const App = () => {
       toast.error(error.log);
     }
 
+    // clear search word bar
     // console.log('clearing search form');
     setWord('');
   };
@@ -92,11 +93,10 @@ const App = () => {
   // called when "save" is clicked on
   const handleSaveImage = async (id) => {
     const imageToBeSaved = images.find((image) => image.id === id); //locate the image in the images array
-    imageToBeSaved.saved = true; // set the image as saved (?)
+    imageToBeSaved.saved = true; // set the image as saved
     try {
       const res = await axios.post(`${API_URL}/images`, imageToBeSaved); // post the image to the db
       if (res.data?.inserted_id) {
-        // setting the image as saved (?)
         setImages(
           images.map((image) =>
             image.id === id ? { ...image, saved: true } : image
@@ -124,7 +124,6 @@ const App = () => {
         //else show either search bar with images or welcome
         <>
           <Search
-            //props -> word, setWord (fct), handleSearchSubmit (fct)
             word={word}
             setWord={setWord}
             handleSubmit={handleSearchSubmit}
